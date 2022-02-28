@@ -1,12 +1,12 @@
 # discounter
 
-Discounter is a CLI tool that helps calculate applicable discounts for the clothes orders made by our customers.
+Discounter is a CLI tool that helps calculate applicable discounts for the clothes orders made by customers.
 
 ## Prerequisites
 
 * JDK 11 installed on machine
 
-## Running
+### Running
 
 Run this command to get started, it will use `input.txt` file by default, located in the same directory: 
 
@@ -26,23 +26,34 @@ You can also use absolute paths:
 ./gradlew run --args='/home/user/Desktop/input.txt'
 ```
 
-All input orders must follow a common format, do refer to `input.txt` for an applicable example. A row consists of date,
-shipment size and shipment provider code. The program output produces the discounted price and discount amount for input
-orders. The contents and pricing of catalogue items can be adjusted in this file:
-`src/main/resources/shipmentCatalogue.txt`
-
-The shop discounter follows the rules which can be easily extended from code. Moreover, all discounts are capped
-against the monthly limit a shop can reimburse partially or fully for shipment costs. This limit can be adjusted in 
-this file, note that value represents Euro cents:
-`src/main/resources/monthlyDiscountWallet.txt`
-
-## Testing
-
-To run all unit and integration tests, use this command: 
+To run all unit and integration tests, use this command:
 
 ```
 ./gradlew test
 ```
+
+### Input and output
+
+Refer to `input.txt` for an applicable example. An order row consists of:
+1. date
+2. shipment size
+3. shipment provider code
+
+Output produces same rows each additionally containing:
+1. the discounted price
+2. discount amount for input orders
+
+The contents and pricing of catalogue items can be adjusted in this file (price in euro cents):
+`src/main/resources/shipmentCatalogue.txt`
+
+### Discount calculation
+
+The discounter follows the rules which can be easily extended from code. List of rules applied for shipments:
+1. All S shipments should always match the lowest S package price among the providers
+2. The third L shipment via LP should be free, but only once a calendar month
+3. Accumulated discounts cannot exceed 10€ in a calendar month. If there are not enough funds to fully cover a discount 
+this calendar month, it should be covered partially. Limit can be adjusted in `src/main/resources/monthlyDiscountWallet.txt`
+file
 
 ## Code of conduct
 
