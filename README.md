@@ -40,8 +40,8 @@ Refer to `input.txt` for an applicable example. An order row consists of:
 3. shipment provider code
 
 Output produces same rows each additionally containing:
-1. the discounted price
-2. discount amount for input orders
+1. discounted price
+2. discount amount
 
 The contents and pricing of catalogue items can be adjusted in this file (price in euro cents):
 `src/main/resources/shipmentCatalogue.txt`
